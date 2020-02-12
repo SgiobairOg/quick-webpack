@@ -23,9 +23,9 @@ module.exports = ( env, argv ) => {
 				children: false, // Hide children information
 				maxModules: 0, // Set the maximum number of modules to be shown
 			},
-			contentBase: './',
-			inline: true,
+			contentBase: './dist',
 			hot: true,
+			inline: true,
 			port: port,
 		},
 
@@ -54,7 +54,7 @@ module.exports = ( env, argv ) => {
 						{
 							// Get all transformed CSS
 							// Extract CSS into separate single bundled file
-							loader: MiniCssExtractPlugin.loader
+							loader: isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader
 						},
 						{
 							// resolve url() and @imports
@@ -97,11 +97,15 @@ module.exports = ( env, argv ) => {
 							},
 						}
 					],
-				}
+				},
 			]
 		},
 
 		plugins: [
+			new HtmlWebpackPlugin({
+				template: './index.html',
+				inject: false,
+			}),
 			new MiniCssExtractPlugin({
 				filename: "styles.css",
 			}),

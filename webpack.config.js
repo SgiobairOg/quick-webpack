@@ -17,13 +17,15 @@ module.exports = ( env, argv ) => {
 		entry: [
 			'./src/javascript/index.js',
 		],
-		watch: true,
 
 		devServer: {
 			stats: {
 				children: false, // Hide children information
 				maxModules: 0, // Set the maximum number of modules to be shown
 			},
+			contentBase: './',
+			inline: true,
+			hot: true,
 			port: port,
 		},
 
@@ -100,12 +102,11 @@ module.exports = ( env, argv ) => {
 		},
 
 		plugins: [
-			new HtmlWebpackPlugin({
-				template: "./index.html",
-			}),
 			new MiniCssExtractPlugin({
 				filename: "styles.css",
 			}),
 		],
+
+		watch: isDevelopment ? true : false,
 	});
 }

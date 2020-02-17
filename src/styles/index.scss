@@ -1,0 +1,28 @@
+:root {
+	font-size: calc(1rem + ((1vw - .48rem) * 1.389));
+}
+
+body {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: center;
+	min-width: 100vw;
+	max-width: 100%;
+	min-height: 100vh;
+	max-height: 100%;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	padding: 1rem 1.5rem;
+	box-sizing: border-box;
+}
+
+.page-title {
+	font-size: 2rem;
+	color: rgba(#000000, .8);
+	margin: 0;
+
+	@media screen and (max-width: 478px) {
+		font-size: 1.8rem;
+	}
+}

@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackReloadPlugin = require('html-webpack-reload-plugin')
 
 module.exports = ( env, argv ) => {
 	const isDevelopment = argv.mode === 'development';
@@ -14,9 +15,12 @@ module.exports = ( env, argv ) => {
 		devtool: isDevelopment ? '#eval-source-map' : 'source-map',
 
 		// entry point
-		entry: [
-			'./src/javascript/index.js',
-		],
+		entry: {
+			main: [
+				'./src/scripts/index.ts',
+				'./src/styles/index.scss',
+			],
+		},
 
 		devServer: {
 			stats: {
@@ -27,12 +31,6 @@ module.exports = ( env, argv ) => {
 			hot: true,
 			inline: true,
 			port: port,
-		},
-
-		// output bundle
-		output: {
-			path: path.resolve(__dirname, 'dist'),
-			filename: 'bundle.js',
 		},
 
 		// module rules
@@ -47,6 +45,13 @@ module.exports = ( env, argv ) => {
 							presets: ['@babel/preset-env']
 						}
 					},
+				},
+				{
+					test: /\.ts$/,
+					exclude: /(node_modules)/,
+					use: {
+						loader: 'ts-loader'
+					}
 				},
 				{
 					test: /\.(sa|sc|c)ss$/,
@@ -101,11 +106,23 @@ module.exports = ( env, argv ) => {
 			]
 		},
 
+		resolve: {
+			extensions: ['.ts', '.js'],
+		},
+
+		// output bundle
+		output: {
+			path: path.resolve(__dirname, 'dist'),
+			filename: '[name].js',
+		},
+
 		plugins: [
 			new HtmlWebpackPlugin({
+				filename: 'index.html',
 				template: './index.html',
 				inject: false,
 			}),
+			isDevelopment ? new HtmlWebpackReloadPlugin() : null,
 			new MiniCssExtractPlugin({
 				filename: "styles.css",
 			}),

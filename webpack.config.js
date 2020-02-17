@@ -122,9 +122,9 @@ module.exports = ( env, argv ) => {
 				template: './index.html',
 				inject: false,
 			}),
-			isDevelopment ? new HtmlWebpackReloadPlugin() : null,
+			isDevelopment ? new HtmlWebpackReloadPlugin() : ()=> {return;},
 			new MiniCssExtractPlugin({
-				filename: "styles.css",
+				filename: "[name].css",
 			}),
 		],
 

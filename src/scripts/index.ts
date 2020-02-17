@@ -1,7 +1,7 @@
 const wittyTagLineContainer = document.querySelector('.witty-bit');
 const taglines = [
 	'it thoroughly discourages whipping of the Llama.',
-	'not owned or afilliated with Microsoft',
+	'not owned by or afilliated with Microsoft',
 	'send me money, or don&apos;t',
 	'i&apos;d rather be playing Arkanoid',
 	'how did you end up finding me?'
